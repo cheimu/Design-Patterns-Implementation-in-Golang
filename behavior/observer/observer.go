@@ -2,12 +2,20 @@ package observer
 
 import "fmt"
 
+type EVT interface {
+	PrintMesg()
+}
+
 type Event struct {
 	Message string
 }
 
+func (e *Event) PrintMesg() {
+	fmt.Printf(e.Message)
+}
+
 type Observer interface {
-	Notify(event Event)
+	Notify(event EVT)
 }
 
 type Publisher struct {
@@ -32,7 +40,7 @@ func (p *Publisher) RemoveObserver(o Observer) {
 	p.ObserversList = append(p.ObserversList[:indexToRemove], p.ObserversList[indexToRemove+1:]...)
 }
 
-func (s *Publisher) NotifyObservers(event Event) {
+func (s *Publisher) NotifyObservers(event EVT) {
 	fmt.Printf("Publisher received message '%s' to notify observers\n", event)
 	for _, observer := range s.ObserversList {
 		observer.Notify(event)

@@ -7,18 +7,18 @@ import (
 
 type TestObserver struct {
 	ID int
-	Event
+	EVT
 }
 
-func (p *TestObserver) Notify(event Event) {
+func (p *TestObserver) Notify(event EVT) {
 	fmt.Printf("Observer %d: message '%s' received \n", p.ID, event)
-	p.Event = event
+	p.EVT = event
 }
 
 func TestSubject(t *testing.T) {
-	testObserver1 := &TestObserver{ID: 1, Event: Event{Message: "default"}}
-	testObserver2 := &TestObserver{ID: 2, Event: Event{Message: "default"}}
-	testObserver3 := &TestObserver{ID: 3, Event: Event{Message: "default"}}
+	testObserver1 := &TestObserver{ID: 1, EVT: &Event{Message: "default"}}
+	testObserver2 := &TestObserver{ID: 2, EVT: &Event{Message: "default"}}
+	testObserver3 := &TestObserver{ID: 3, EVT: &Event{Message: "default"}}
 
 	publisher := Publisher{}
 
@@ -66,14 +66,15 @@ func TestSubject(t *testing.T) {
 				break
 			}
 
-			if printObserver.Event.Message != "default" {
+			event, _ := (printObserver.EVT).(*Event)
+			if event.Message != "default" {
 				t.Errorf("The observer's Message field weren't"+
-					" empty: %s\n", printObserver.Event)
+					" empty: %s\n", event.Message)
 			}
 		}
 
 		message := "Hello World!"
-		publisher.NotifyObservers(Event{message})
+		publisher.NotifyObservers(&Event{message})
 
 		for _, observer := range publisher.ObserversList {
 			printObserver, ok := observer.(*TestObserver)
@@ -82,10 +83,11 @@ func TestSubject(t *testing.T) {
 				break
 			}
 
-			if printObserver.Event.Message != message {
+			event, _ := (printObserver.EVT).(*Event)
+			if event.Message != message {
 				t.Errorf("Expected message on observer %d was "+
 					"not expected: '%s' != '%s'\n", printObserver.ID,
-					printObserver.Message, message)
+					event.Message, message)
 			}
 		}
 	})
