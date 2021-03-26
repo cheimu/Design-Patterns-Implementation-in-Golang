@@ -1,4 +1,4 @@
-package main
+package workers_pool
 
 import (
 	"testing"
@@ -27,7 +27,7 @@ func TestWorker(t *testing.T) {
 func TestCreateWorkers(t *testing.T) {
 	idleWorkers := make(chan *chan int, WORKERS_SIZE)
 
-	createWorkers(&idleWorkers)
+	CreateWorkers(&idleWorkers)
 
 	if len(idleWorkers) != WORKERS_SIZE {
 		t.Errorf("Size of idle workers after a creating the workers must be "+
@@ -62,8 +62,8 @@ func TestDispatcher(t *testing.T) {
 	idleWorkers := make(chan *chan int, WORKERS_SIZE)
 	jobCh := make(chan int)
 
-	go dispatcher(&jobCh, &idleWorkers)
-	createWorkers(&idleWorkers)
+	go Dispatcher(&jobCh, &idleWorkers)
+	CreateWorkers(&idleWorkers)
 
 	if len(idleWorkers) != WORKERS_SIZE {
 		t.Errorf("Size of idle workers after a creating the workers must be "+
