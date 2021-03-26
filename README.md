@@ -1,7 +1,8 @@
 # Go-Design-Patterns
 
 Implementation of textbooks: **Go Design Patterns** <br>
-https://www.packtpub.com/product/go-design-patterns/9781786466204 <br>
+https://www.packtpub.com/product/go-design-patterns/9781786466204 <br>  
+
 The original textbook
   1. has tons of errors <br>
   2. is unclear
