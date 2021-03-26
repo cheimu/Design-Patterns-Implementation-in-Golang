@@ -1,17 +1,17 @@
 package main
 
 import (
-	"Go-Design-Patterns/concurrent/worker_pool"
+	workers_pool "Go-Design-Patterns/concurrent/workers_pool/simple_example"
 	"fmt"
 	"sync"
 )
 
 func main() {
 	bufferSize := 100
-	var dispatcher worker_pool.Dispatch = worker_pool.NewDispatcher(bufferSize)
+	var dispatcher workers_pool.Dispatch = workers_pool.NewDispatcher(bufferSize)
 	workers := 3
 	for i := 0; i < workers; i++ {
-		worker := worker_pool.PreffixSuffixWorker{
+		worker := workers_pool.PreffixSuffixWorker{
 			PrefixS: fmt.Sprintf("WorkerID: %d -> ", i),
 			SuffixS: " World",
 			ID:      i,
@@ -23,7 +23,7 @@ func main() {
 	wg.Add(requests)
 	for i := 0; i < requests; i++ {
 		mesg := fmt.Sprintf("(Msg_id: %d) -> Hello", i)
-		req := worker_pool.NewStringRequest(mesg, i, &wg)
+		req := workers_pool.NewStringRequest(mesg, i, &wg)
 		dispatcher.MakeRequest(req)
 	}
 	dispatcher.Stop()
