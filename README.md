@@ -50,6 +50,5 @@ This repository implements all the examples given in the textbooks correctly and
   - [Barrier](https://github.com/cheimu/Go-Design-Patterns/tree/main/concurrent/barrier) <br>
   - [Future](https://github.com/cheimu/Go-Design-Patterns/tree/main/concurrent/future)<br>
   - [Pipeline](https://github.com/cheimu/Go-Design-Patterns/tree/main/concurrent/pipeline)<br>
-  - [Proxy](https://github.com/cheimu/Go-Design-Patterns/tree/main/creational/Abstract_Factory)<br>
   - [Workers Pools](https://github.com/cheimu/Go-Design-Patterns/tree/main/concurrent/workers_pool)<br>
   - [Concurrent Observer](https://github.com/cheimu/Go-Design-Patterns/tree/main/concurrent/concurrent_observer)<br>
